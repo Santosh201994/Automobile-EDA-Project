@@ -36,14 +36,6 @@ Data analysis for the project would be based on the various automobile features 
 - Data visualisations
 - EDA on findings
 
-## &#10064;Contributors Info:
-> *Anyone can use the dataset to create further data analysis|visualistaions and to look at different views and scope of dataset
-
-- Original Dataset can be found <a href="https://github.com/warsab/EDA_Automobiles/blob/main/automobile.txt">HERE</a> 
-- Raw Data is can be found within the Jupyter notebook for the project
-- Pyt# Automobile_EDA_PROJECT
-Automobile exploratory data analysis
-
 #### &#10148; Summary:
 `This dataset is a general overview of automobile manufacturers and the features that accompany them.`
 
