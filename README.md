@@ -43,9 +43,7 @@ Data analysis for the project would be based on the various automobile features 
 
 * Source Info:
 
-> Name: automobile.txt  
-Owner: This dataset was supplied by HyperionDev for Bootcamp project. Collected from an unknown source`  
-Shared: With Everyone  
+> Name: automobile.txt
 
 #### &#10148;Project Status: `Completed` [&#10003;]
 
@@ -80,8 +78,8 @@ Data analysis for the project would be based on the various automobile features 
 - EDA on findings
 
 ## Featured:
-* Jupyter Notebook- <a href="https://github.com/warsab/EDA_Automobiles/blob/main/Automobiles_project.ipynb">[Automobiles_Project]</a> 
-* EDA pdf- <a href="https://github.com/warsab/EDA_Automobiles/blob/main/My%20Task%20Automobile%20EDA.pdf">[Automobile EDA]</a>
+* Jupyter Notebook- <a href="https://github.com/Santosh201994/Automobile-EDA-Project/blob/406e9a4d5708f7a9951248f6aa7f61c147dfdab1/automobile-project.ipynb">[Automobiles_Project]</a> 
+* EDA pdf- <a href="https://github.com/Santosh201994/Automobile-EDA-Project/blob/406e9a4d5708f7a9951248f6aa7f61c147dfdab1/Automobile%20EDA.pdf">[Automobile EDA]</a>
 hon modules required:
    * numpy
    * pandas
@@ -93,5 +91,5 @@ hon modules required:
 
 
 ## Featured:
-* Jupyter Notebook- <a href="https://github.com/warsab/EDA_Automobiles/blob/main/Automobiles_project.ipynb">[Automobiles_Project]</a> 
-* EDA pdf- <a href="https://github.com/warsab/EDA_Automobiles/blob/main/My%20Task%20Automobile%20EDA.pdf">[Automobile EDA]</a>
+* Jupyter Notebook- <a href="https://github.com/Santosh201994/Automobile-EDA-Project/blob/406e9a4d5708f7a9951248f6aa7f61c147dfdab1/automobile-project.ipynb">[Automobile-Project]</a> 
+* EDA pdf- <a href="https://github.com/Santosh201994/Automobile-EDA-Project/blob/406e9a4d5708f7a9951248f6aa7f61c147dfdab1/Automobile%20EDA.pdf">[Automobile EDA]</a>
