@@ -95,21 +95,6 @@ Data analysis for the project would be based on the various automobile features 
 - Data visualisations
 - EDA on findings
 
-## &#10064;Contributors Info:
-> *Anyone can use the dataset to create further data analysis|visualistaions and to look at different views and scope of dataset
-
-- Original Dataset can be found <a href="https://github.com/warsab/EDA_Automobiles/blob/main/automobile.txt">HERE</a> 
-- Raw Data is can be found within the Jupyter notebook for the project
-- Python modules required:
-   * numpy
-   * pandas
-   * seaborn
-   * wordcloud
-   * datetime
-   * missingno
-   * Ipython
-
-
 ## Featured:
 * Jupyter Notebook- <a href="https://github.com/warsab/EDA_Automobiles/blob/main/Automobiles_project.ipynb">[Automobiles_Project]</a> 
 * EDA pdf- <a href="https://github.com/warsab/EDA_Automobiles/blob/main/My%20Task%20Automobile%20EDA.pdf">[Automobile EDA]</a>
