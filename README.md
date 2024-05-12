@@ -2,15 +2,7 @@
 Automobile exploratory data analysis
 
 #### &#10148; Summary:
-`This dataset is a general overview of automobile manufacturers and the features that accompany them.`
-
-<div class="alert alert-warning" markdown="1">
-
-* Source Info:
-
-> Name: automobile.txt  
-Owner: This dataset was supplied by HyperionDev for Bootcamp project. Collected from an unknown source`  
-Shared: With Everyone  
+`This dataset is a general overview of automobile manufacturers and the features that accompany them.
 
 #### &#10148;Project Status: `Completed` [&#10003;]
 
