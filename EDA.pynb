@@ -1,0 +1,798 @@
+Automobile Exploratory Data Analysis
+4-43401_audi-wallpaper.jpg
+
+Step 1: Importing Modules:
+
+Modules Comments for Below Code: Importing Modules:
+Importing required packages needed for program
+import numpy as np
+import pandas as pd
+import seaborn as sns
+
+import warnings
+warnings.filterwarnings("ignore")
+
+import missingno 
+
+from IPython import display
+from datetime import datetime
+
+import matplotlib.pyplot as plt
+from matplotlib import image as mpimg
+Step 2: Generating Raw Dataframe:
+
+Dataframe Comments for Below Code: Generate a Dataframe:
+Generating a dataframe called 'automobile_raw' from the file 'automobile.txt'
+Displaying first 10 rows using 'head()' function:
+Also displaying the columns within this dataframe
+automobile_raw = pd.read_table("automobile.txt", delimiter = ",")
+
+automobile_raw.head(10)
+symboling	normalized-losses	make	fuel-type	aspiration	num-of-doors	body-style	drive-wheels	engine-location	wheel-base	...	engine-size	fuel-system	bore	stroke	compression-ratio	horsepower	peak-rpm	city-mpg	highway-mpg	price
+0	3	?	alfa-romero	gas	std	two	convertible	rwd	front	88.6	...	130	mpfi	3.47	2.68	9.0	111	5000	21	27	13495
+1	3	?	alfa-romero	gas	std	two	convertible	rwd	front	88.6	...	130	mpfi	3.47	2.68	9.0	111	5000	21	27	16500
+2	1	?	alfa-romero	gas	std	two	hatchback	rwd	front	94.5	...	152	mpfi	2.68	3.47	9.0	154	5000	19	26	16500
+3	2	164	audi	gas	std	four	sedan	fwd	front	99.8	...	109	mpfi	3.19	3.40	10.0	102	5500	24	30	13950
+4	2	164	audi	gas	std	four	sedan	4wd	front	99.4	...	136	mpfi	3.19	3.40	8.0	115	5500	18	22	17450
+5	2	?	audi	gas	std	two	sedan	fwd	front	99.8	...	136	mpfi	3.19	3.40	8.5	110	5500	19	25	15250
+6	1	158	audi	gas	std	four	sedan	fwd	front	105.8	...	136	mpfi	3.19	3.40	8.5	110	5500	19	25	17710
+7	1	?	audi	gas	std	four	wagon	fwd	front	105.8	...	136	mpfi	3.19	3.40	8.5	110	5500	19	25	18920
+8	1	158	audi	gas	turbo	four	sedan	fwd	front	105.8	...	131	mpfi	3.13	3.40	8.3	140	5500	17	20	23875
+9	0	?	audi	gas	turbo	two	hatchback	4wd	front	99.5	...	131	mpfi	3.13	3.40	7.0	160	5500	16	22	?
+10 rows × 26 columns
+
+print(f'''\u274f Columns:{list(automobile_raw.columns)}''')
+❏ Columns:['symboling', 'normalized-losses', 'make', 'fuel-type', 'aspiration', 'num-of-doors', 'body-style', 'drive-wheels', 'engine-location', 'wheel-base', 'length', 'width', 'height', 'curb-weight', 'engine-type', 'num-of-cylinders', 'engine-size', 'fuel-system', 'bore', 'stroke', 'compression-ratio', 'horsepower', 'peak-rpm', 'city-mpg', 'highway-mpg', 'price']
+♦=============================================================
+
+My Introductory Data Observations
+* It is important to know what data you are dealing with before you can interpret and create visualisations. * I need to know what data will be needed and what data wont be needed
+1) Columns descriptions:
+➤ symboling: this is the insurance risk rating - Need this column: ✕ ➤ normalized-losses: the relative average loss payment per insured vehicle year - Need this column: ✓ (missing values) ➤ Make: This is the car brand - Need this column: ✓ ➤ fuel-type: Petrol or diesel - Need this column: ✓ ➤ aspiration: Type of engine aspirator - Need this column: ✕ ➤ num-of-doors: Number of doors to car - Need this column: ✓ ➤ body-style: Style of car body - Need this column: ✓ ➤ drive-wheels: 4wd/rwd/fwd drive - Need this column: ✓ ➤ engine-location: Front or Back - Need this column: ✕ ➤ wheel-base: Wheel dimensions - Need this column: ✕ ➤ length: Car Length - Need this column: ✕ ➤ width: Car Width - Need this column: ✕ ➤ height: Car Height - Need this column: ✕ ➤ curb-weight: Total weight of car - Need this column: ✓ ➤ engine-type: Type of engine - Need this column: ✕ ➤ engine-size: Size of engine - Need this column: ✓ ➤ fuel-system: Type of fuel system in vehicle - Need this column: ✓ ➤ bore: the diameter of each cylinder - Need this column: ✕ ➤ stroke: Movements of the piston - Need this column: ✕ ➤ compression-ratio: Volume of the cylinder with the piston - Need this column: ✓ ➤ horsepower: Power car produces - Need this column: ✓ ➤ peak-rpm: Revolution per minute - Need this column: ✓ ➤ city-mpg: Driving with occasional stopping and braking ideal for city - Need this column: ✓ ➤ highway-mpg: Driving with occasional stopping and braking ideal for highway - Need this column: ✓ ➤ price: The car price - Need this column: ✓
+
+2) What kind of Data Type is this?
+This data is based around the comparisions of different car makes and features related to their selling price.
+
+This would be ordinal data as soem of the data is qualitative as it has a natural order of rank based on specific characterictics. This could be look from the features that contribute to the vehicles selling price for example. There is also a bit of ratio data in this dataframe as there is variables that can easured on a continuois scale such height, weight ect.
+
+Also an example of Dichotomous data would be the 'num-of-doors' and 'fuel-type' column as they only have 2 possible values.
+
+3) Outliers in data set:
+none observed, as all data columns is consistant with one another and there are no unusual measurements.
+3) Missing Value Types Observed:
+Normalised losses,num-of-doors,bore,stroke,horsepower,peak rpm and Price = MCAR - the missing values for the losses are random and probally were not recorded. It is independant from any other data within the file.
+3) Data Scope Summary for Visualisations:
+I would say the outline for the data analysis would be analysing the relationship between the car makes and drawing some conclusions:
+What car makes have the highest and lowest selling price; What features contribute to the price; What features contribute to the normalised losses; What features contribute to the numbers in manufacturing and General feature comparison and relationships to one another.
+
+Interesting Facts:
+These are the top best-selling cars in South Africa in September 2022?
+➟ Toyota – 12 059 units ➟ Volkswagen Group – 6 750 units ➟ Suzuki – 4 335 units ➟ Hyundai – 3 146 units ➟ Nissan – 2 649 units ➟ Renault – 2 601 units ➟ Isuzu – 2 287 units ➟ Ford – 2 212 units ➟ Kia – 2 086 units ➟ Chery – 1 352 units
+
+'-https://businesstech.co.za/news/motoring/631725/top-10-best-selling-cars-in-south-africa-right-now-with-pricing/
+
+================================================== ♦
+
+Step 3: Data Cleaning:
+
+Data Cleaning Comments for Below Code: Checking for missing values in dataframe:
+Using 'isna()' function to check for all the missing data in dataframe
+Then calculating the sum of missing values per columns and displaying it
+Using 'isin()' function to search for specific symbol '?' then calculating the totals sum in each column.
+No Missing Values found: No Action Needed Unusual data('?') in column found: Need to replace ? with another variable
+
+References: for code used to search '?' in dataframe (https://stackoverflow.com/questions/35277075/python-pandas-counting-the-occurrences-of-a-specific-value)
+
+print("====== \u274f Missing Values: =======")
+
+automobile_raw.isna().sum()
+====== ❏ Missing Values: =======
+symboling            0
+normalized-losses    0
+make                 0
+fuel-type            0
+aspiration           0
+num-of-doors         0
+body-style           0
+drive-wheels         0
+engine-location      0
+wheel-base           0
+length               0
+width                0
+height               0
+curb-weight          0
+engine-type          0
+num-of-cylinders     0
+engine-size          0
+fuel-system          0
+bore                 0
+stroke               0
+compression-ratio    0
+horsepower           0
+peak-rpm             0
+city-mpg             0
+highway-mpg          0
+price                0
+dtype: int64
+print("====== \u274f Non Values [ie-?]: =======")
+
+automobile_raw.isin(['?']).sum(axis=0)
+====== ❏ Non Values [ie-?]: =======
+symboling             0
+normalized-losses    41
+make                  0
+fuel-type             0
+aspiration            0
+num-of-doors          2
+body-style            0
+drive-wheels          0
+engine-location       0
+wheel-base            0
+length                0
+width                 0
+height                0
+curb-weight           0
+engine-type           0
+num-of-cylinders      0
+engine-size           0
+fuel-system           0
+bore                  4
+stroke                4
+compression-ratio     0
+horsepower            2
+peak-rpm              2
+city-mpg              0
+highway-mpg           0
+price                 4
+dtype: int64
+# Replace all data containing '?' to a NAN value using numpy.
+automobile_raw = automobile_raw.replace(['?'], np.NAN)
+automobile_raw.isna().sum()
+symboling             0
+normalized-losses    41
+make                  0
+fuel-type             0
+aspiration            0
+num-of-doors          2
+body-style            0
+drive-wheels          0
+engine-location       0
+wheel-base            0
+length                0
+width                 0
+height                0
+curb-weight           0
+engine-type           0
+num-of-cylinders      0
+engine-size           0
+fuel-system           0
+bore                  4
+stroke                4
+compression-ratio     0
+horsepower            2
+peak-rpm              2
+city-mpg              0
+highway-mpg           0
+price                 4
+dtype: int64
+# Dropping all 'NAN' values using dropna() function
+# Creating new dataframe after clean up called 'automobile_df'
+# Using missingno.matrix to print visualsation if any missing values
+
+automobile_df = automobile_raw.dropna()
+missing = missingno.matrix(automobile_df, figsize = (30,10));
+
+# ======== Saving Image:
+fig = missing.get_figure()
+fig.savefig('missing.png')
+
+plt.show()
+
+
+Data Cleaning Comments for Below Code: Removing Duplicates
+Checking if any duplicated rows in the dataframe using 'duplicated()' function
+Using 'sum' function to count how many line are duplicated
+No Duplicate Values found: No Action Needed
+
+automobile_df.duplicated().sum()
+0
+
+Data Cleaning Comments for Below Code:
+Removing irrelevant data:
+
+Now that the incosistant and NAN values are cleaned up, I can now remove the columns I dont need
+Setting variable to store all the column names I need to drop
+Using 'drop' function to drop unecessary columns from dataframe
+Setting axis to 1 indicating the column to fall away
+Displaying the new columns within the dataframe
+column_drops = ['aspiration','engine-type','wheel-base','length', 'width',
+                'height', 'engine-location', 'bore', 'stroke',
+                'num-of-cylinders','fuel-system','drive-wheels']
+               
+
+automobile_df.drop(column_drops,axis = 1, inplace=True)
+
+print(automobile_df.columns)
+Index(['symboling', 'normalized-losses', 'make', 'fuel-type', 'num-of-doors',
+       'body-style', 'curb-weight', 'engine-size', 'compression-ratio',
+       'horsepower', 'peak-rpm', 'city-mpg', 'highway-mpg', 'price'],
+      dtype='object')
+
+Data Cleaning Comments for Below Code: Checking for data types:
+Using 'dtypes' function to check the data types for each column
+automobile_df.dtypes
+symboling              int64
+normalized-losses     object
+make                  object
+fuel-type             object
+num-of-doors          object
+body-style            object
+curb-weight            int64
+engine-size            int64
+compression-ratio    float64
+horsepower            object
+peak-rpm              object
+city-mpg               int64
+highway-mpg            int64
+price                 object
+dtype: object
+
+Data Cleaning Comments for Below Code: Data observations:
+We can see that some data is objects
+Need to convert the objects to either strings, intergers or floats
+Converting dtype objects:
+
+We need to convert column 'normalised-losses' into a Interger
+We need to convert column 'make' into a String
+We need to convert column 'fuel-type' into a String
+We need to convert column 'num-of-doors' into a String
+We need to convert column 'body-style' into a String
+We need to convert column 'horsepower' into a Interger
+We need to convert column 'peak-rpm' into a Interger
+We need to convert column 'price' into a Interger
+We do this by creating a variable to store the column names We convert the columns in the automobile dataframe using function 'to.numpy' for intergers We convert the columns in the automobile dataframe using function '.astype' for strings
+
+# Converting to Integers
+columns_convert = ["normalized-losses","horsepower","peak-rpm","price"]
+
+automobile_df[columns_convert] = automobile_df[columns_convert].to_numpy(dtype = 'int64')
+# Converting to Strings
+columns_convert_str = ["make", "fuel-type", "num-of-doors","body-style"]
+
+automobile_df[columns_convert_str] = automobile_df[columns_convert_str].astype('string')
+print(f'''===== \u274f New Dataframe Dtypes: =======
+{automobile_df.dtypes}
+***** NO VALUES ARE OBJECTS ANYMORE *****''')
+===== ❏ New Dataframe Dtypes: =======
+symboling              int64
+normalized-losses      int64
+make                  string
+fuel-type             string
+num-of-doors          string
+body-style            string
+curb-weight            int64
+engine-size            int64
+compression-ratio    float64
+horsepower             int64
+peak-rpm               int64
+city-mpg               int64
+highway-mpg            int64
+price                  int64
+dtype: object
+***** NO VALUES ARE OBJECTS ANYMORE *****
+Step 4: Data Exploration I: Car manufacturing price's
+Data Visualisation: Boxplot Chart
+Exploring what the price ranges are from different manufactures
+
+Data Visualisation Comments for Below Code: Setting Boxplot Visualisation
+Using plt.rcParams to set visualisation size
+Setting boxplot features and printing out manufacturer and price ranges
+plt.rcParams['figure.figsize']=(23,10)
+ax = sns.boxplot(x=automobile_df['make'], y=automobile_df['price'])
+plt.title('Price Ranges by Manufacturer', fontweight='bold')
+
+# ==========Saving image:
+fig = ax.get_figure()
+fig.savefig('price.png')
+
+plt.show()
+
+Data Visualisation: Linear-regression Chart
+Exploring what features contribute to the price ranges:
+
+Engine size
+City/highway mpg
+Curb Weight
+Horsepower
+
+Data Visualisation Comments for Below Code: Setting New dataframe using pandas
+Creating new dataframe called car_features to store all data columns needed for visualisations
+Setting the new dataframe by using groupby function to store accumulated values by 'make'
+Using 'round' function to round off all values
+manufacturer = automobile_df.groupby(by = ['make'])
+car_data_avg = round(manufacturer.mean(),0)
+
+car_features = pd.DataFrame({'price': car_data_avg['price'],
+                             'city-mpg': car_data_avg['city-mpg'],
+                             'highway-mpg':car_data_avg['highway-mpg'],
+                             'engine-size':car_data_avg['engine-size'],
+                             'curb-weight':car_data_avg['curb-weight'],
+                             'horsepower':car_data_avg['horsepower'],
+                             'symboling':car_data_avg['symboling'],
+                             'compression-ratio':car_data_avg['compression-ratio']
+                            })
+
+Data Visualisation Comments for Below Code: Setting Visualisation for Engine Size vs Price
+Displaying visualisation using sns.regplot (linear regression)
+Setting features for visualisation (colour, titles, labels, ect.)
+Saving chart image using savefig functon from matplotlib (mpimg)
+# ============Engine Size chart:
+
+engine_size_graph = sns.regplot(x=car_features["price"], y=car_features["engine-size"]
+                                ,color = "blue")
+
+plt.title('\u2692 Engine size and price ratio',size = (30)) 
+plt.ylabel('Engine-Size',size = (15)) 
+plt.xlabel('Price \u0024',size = (15))
+
+# ==========Saving image:
+fig = engine_size_graph.get_figure()
+fig.savefig('enginesize.png')
+
+
+Data Visualisation Comments for Below Code: Setting Visualisation for City and High mpg vs Price
+Displaying visualisation using sns.regplot (linear regression)
+Setting features for visualisation (colour, titles, labels, ect.)
+Setting the labels to appear in the legend
+Saving chart image using savefig functon from matplotlib (mpimg)
+# ============ City & Highway mpg chart:
+labels = car_features['city-mpg']
+plt.figure(figsize=(9,6))
+
+city_graph = sns.regplot(x=car_features["price"], y=car_features["city-mpg"],
+                         color ="yellow",label = labels)
+
+highway_graph = sns.regplot(x=car_features["price"], y=car_features["highway-mpg"],
+                           label = labels)
+
+plt.title('\u27A2 City and Highway mpg and price ratio',size = (15))
+plt.ylabel('MPG Score',size = (8)) 
+plt.xlabel('Price \u0024',size = (8))
+plt.legend(title = "\u225b Makes:",fontsize = 8, bbox_to_anchor = (1.4,1),borderpad = 1.8)
+
+#============= Saving images for city and highway mpg
+fig = city_graph.get_figure()
+fig.savefig('citympg.png')
+
+fig = highway_graph.get_figure()
+fig.savefig('highwaympg.png')
+
+
+Data Visualisation Comments for Below Code: Setting Visualisation for Curb-weight vs Price
+Displaying visualisation using histplot (Histogram)
+Setting features for visualisation (colour, titles, labels, ect.)
+Setting kde (kernel density estimation) to True to display the probabilty density
+Saving chart image using savefig functon from matplotlib (mpimg)
+#=========== Curb Weight Chart:
+plt.figure(figsize=(9,6))
+curb_weight_graph = sns.histplot(automobile_df['price'],y=automobile_df['curb-weight'],kde=True)
+
+plt.title('\u2696 Curb-weight and price ratio') 
+plt.ylabel('Price \u0024') 
+plt.xlabel('Weight (lbs)')
+
+#============= Saving image:
+fig = curb_weight_graph.get_figure()
+fig.savefig('curbweight.png')
+
+
+Data Visualisation Comments for Below Code: Setting Visualisation for Horsepower vs Price
+Displaying visualisation using histplot (Histogram)
+Setting features for visualisation (colour, titles, labels, ect.)
+Adding a colour bar using 'cbar' feature
+Saving chart image using savefig functon from matplotlib (mpimg)
+#=========== Curb Weight Chart:
+plt.style.use('dark_background')
+
+horsepwr_graph = sns.histplot(x=car_features["price"], y=car_features["horsepower"],
+                             color = "red",cbar=True, cbar_kws=dict(shrink=.75))
+
+plt.title('\u2695 Horsepower and price ratio',size = 20) 
+plt.ylabel('Price \u0024') 
+plt.xlabel('Horsepower (hp)')
+
+
+#============= Saving image:
+fig = horsepwr_graph.get_figure()
+fig.savefig('horsepwr.png')
+
+Step 5: Data Exploration II: Normalized Losses
+Data Visualisation: Chart
+Creating visualisation to see the normalised losses of the car makes
+
+Data Visualisation Comments for Below Code: Setting New Dataframes
+Setting 2 new dataframes in order to extract the total average values for 'normalised losses' and 'symboling'
+Setting a new variable called new_df to extract all the car makes using '.unique()' function
+Setting a empty dictionary called avg_normalized & avg_symbol to extract data to
+Using 'for' loop to extract all the car makes, normalized-losses and symbol values and placing them into the empty dictionaries I created
+Using '.mean()' to only extract the total averages.
+Creating a new dataframe using pandas pd.Dataframe
+Using '.items()' function as I am returning data from a dictionary
+Printing new dataframe and realising a need to change the column names as they are showing '0' and '1'
+Using .rename() function to rename columns names in dataframe dictionary to 'make' and 'normalized-losses
+Repeating the same code above to create new dataframe for symboling (ie symboling_df)
+# Setting variable to store 'make' unique data:
+new_df = automobile_df.make.unique()
+avg_normalized = {}
+avg_symbol= {}
+
+#Extracting data:
+for make in new_df:
+    car_make = automobile_df.loc[automobile_df['make'] == make]
+    avg_normalized[make] = round(car_make['normalized-losses'].mean())
+    avg_symbol[make] = round(car_make['symboling'].mean(),1)
+
+#Setting 1st new dataframe:
+normalized_df = avg_normalized
+normalized_df = pd.DataFrame(normalized_df.items())
+print(f'''===== Normalized DF ====
+    \rColumns:
+    \r{normalized_df.head()}\n''')
+
+#Renaming colummn names in 'normalized_df':
+normalized_df.rename(columns={
+    0:'make',
+    1:'normalized-losses'
+},inplace = True)
+
+print(f'''===== Normalized DF ====
+    \rColumns Renamed:
+    \r{normalized_df.head()}\n''')
+
+#Setting 2nd new dataframe:
+symboling_df = avg_symbol
+symboling_df = pd.DataFrame(symboling_df.items())
+print(f'''===== Symboling DF ====
+    \rColumns:
+    \r{symboling_df.head()}\n''')
+
+#Renaming colummn names in 'symboling_df':
+symboling_df.rename(columns={
+    0:'make',
+    1:'symboling'
+},inplace = True)
+print(f'''===== Symboling DF ====
+    \rColumns Renamed:
+    \r{symboling_df.head()}\n''')
+===== Normalized DF ====
+    
+Columns:
+    
+           0    1
+0       audi  161
+1        bmw  190
+2  chevrolet  100
+3      dodge  132
+4      honda  103
+
+===== Normalized DF ====
+    
+Columns Renamed:
+    
+        make  normalized-losses
+0       audi                161
+1        bmw                190
+2  chevrolet                100
+3      dodge                132
+4      honda                103
+
+===== Symboling DF ====
+    
+Columns:
+    
+           0    1
+0       audi  1.5
+1        bmw  0.5
+2  chevrolet  1.0
+3      dodge  1.0
+4      honda  0.6
+
+===== Symboling DF ====
+    
+Columns Renamed:
+    
+        make  symboling
+0       audi        1.5
+1        bmw        0.5
+2  chevrolet        1.0
+3      dodge        1.0
+4      honda        0.6
+
+
+Data Visualisation Comments for Below Code: Displaying visualisations from new dataframes 'normalized_df':
+Setting variable 'normalized_sorted' to store the data in ascending order
+Using plt.rcParams to set figure size for visualisation
+Setting rule for 'colours' variable to highlight certain bars only in chart
+Setting visualisation uisng plt.barh(horizontal bar) to display the total avg of normalized-losses per car make. (Highlighting the bars that are the top 5 highest),
+Setting features for chart (Colors, size, titles, lables ect..)
+normalized_sorted = normalized_df.sort_values(by ='normalized-losses',ascending=False)
+
+plt.rcParams["figure.figsize"] = (20, 5)
+plt.rcParams["figure.autolayout"] = True
+
+colours = ["red" if i >=146 else "green" for i in normalized_sorted['normalized-losses']]
+plt.barh(normalized_sorted['make'], normalized_sorted['normalized-losses'],
+         align = 'center', color = colours)
+
+plt.title('Normalized Losses per Car Make') 
+plt.ylabel('Make') 
+plt.xlabel('Normalised losses')
+
+
+
+# ==========Saving image:
+plt.savefig("normalised.png")
+
+plt.show()
+
+
+Data Visualisation Comments for Below Code: Displaying visualisations from new dataframes 'symboling_df':
+Setting variable 'symboling_sorted' to store the data in ascending order
+Using plt.rcParams to set figure size for visualisation
+Setting rule for 'colours' variable to highlight certain bars only in chart
+Setting visualisation uisng plt.barh(horizontal bar) to display the total avg of symboling scores per car make. (Highlighting the bars that are the top 5 highest)
+Setting features for chart (Colors, size, titles, lables ect..)
+symboling_sorted = symboling_df.sort_values(by ='symboling',ascending=False)
+
+plt.rcParams["figure.figsize"] = (20, 5)
+plt.rcParams["figure.autolayout"] = True
+
+colours = ["green" if i <1.5 else "red" for i in symboling_sorted['symboling']]
+plt.barh(symboling_sorted['make'], symboling_sorted['symboling'], align = 'center', color = colours)
+
+plt.title('Symboling per car make') 
+plt.ylabel('Make') 
+plt.xlabel('Symboling ratio')
+
+# ==========Saving image:
+plt.savefig("symboling.png")
+
+plt.show()
+
+Step 4: Data Exploration II: Features
+Data Visualisation: Pie Chart
+Exploring what features affect the manufacturing qty's
+
+Data Visualisation Comments for Below Code: Setting Variables to store data:
+Setting variables to store the data for each body style type within the Data Frame
+Using 'loc' function to focus on column 'body-style' and extracting data for each type.
+Then using '.count()' function to count the total number of each body style-type occurance
+There are 4 body types: Convertible, Hardtop, Hatchback, Sedan, Wagon
+# Extracting data for body-style types into variables
+bs_convert = automobile_df.loc[(automobile_df['body-style'] == 'convertible')]
+bs_convert = bs_convert["body-style"].count()
+
+bs_hardtop = automobile_df.loc[(automobile_df['body-style'] == 'hardtop')]
+bs_hardtop = bs_hardtop["body-style"].count()
+
+bs_hatchback = automobile_df.loc[(automobile_df['body-style'] == 'hatchback')]
+bs_hatchback = bs_hatchback["body-style"].count()
+
+bs_sedan = automobile_df.loc[(automobile_df['body-style'] == 'sedan')]
+bs_sedan = bs_sedan["body-style"].count()
+
+bs_wagon = automobile_df.loc[(automobile_df['body-style'] == 'wagon')]
+bs_wagon = bs_wagon["body-style"].count()
+
+Data Visualisation Comments for Below Code: Setting Visualisation:
+Setting pie chart visualisation using the body-style type variables.
+Using pie chart to see the percentage qty's ratio for each body-style type
+Setting variable 'labels' to use for title in pie segments
+Setting variable 'sizes' to stored the body-style type variables.
+Setting pie chart style
+Plotting pie chart and setting features( ie-colour, titles, angle ect.)
+# Setting Pie Chart:
+labels = 'Sedan', 'Hardtop', 'Hatchback', 'Convertible', 'Wagon'
+sizes = [bs_sedan, bs_hardtop, bs_hatchback, bs_convert, bs_wagon]
+
+# Setting wedges expansion dimensions:
+explode = (0.2, 0, 0.1, 0, 0) 
+
+plt.style.use("classic")
+fig1, ax1 = plt.subplots(figsize=(10, 10))
+
+ax1.pie(sizes, explode=explode, labels=labels, autopct='%1.1f%%',
+        shadow=True, startangle=100)
+
+ax1.axis('equal')
+plt.title("Total number of bodystyles")
+
+# ==========Saving image:
+plt.savefig("body-type.png")
+
+plt.show()
+
+Data Visualisation: Horizontal bar chart
+Exploring what features affect the manufacturing qty's
+
+Data Visualisation Comments for Below Code: Setting Variables to store data:
+Setting variables to store the data for each fuel-type within the Data Frame
+Using 'loc' function to focus on column 'fuel-type' and extracting data for each type.
+Then using '.count()' function to count the total number of each fuel-type occurance
+There are 2 fuel-types: Gas, Diesel
+Setting Visualisation:
+
+Setting H-Bar chart visualisation using the fuel-type variables.
+Using H-bar chart to see the qty's ratio for each fuel-type
+Setting variable 'labels' to use for title in pie segments
+Setting variable 'x' and 'y' to store each fuel-type variables.
+Plotting bar chart and setting features( ie-colour, titles, labels ect.)
+# Extracting data for fuel-types into variables
+ft_gas = automobile_df.loc[(automobile_df['fuel-type'] == 'gas')]
+ft_gas = ft_gas["fuel-type"].count()
+
+ft_diesel = automobile_df.loc[(automobile_df['fuel-type'] == 'diesel')]
+ft_diesel = ft_diesel["fuel-type"].count()
+
+x=['Gas', 'Diesel']
+colours = ("Lime","brown")
+y=[ft_gas, ft_diesel]
+
+# Plotting Chart
+plt.style.use('ggplot')
+plt.barh(x, y, color = colours, label = ((ft_gas,ft_diesel)))
+ 
+plt.xlabel("Total nr")
+plt.ylabel("Fuel-Types")  
+plt.title("Bar Chart displaying fuel-type qty's:")
+plt.legend(title = "\u2620 fuel type qty's:",fontsize = 13, bbox_to_anchor = (1.4,0.8),borderpad = 2)
+
+# ==========Saving image:
+plt.savefig("fuel-types.png")
+
+plt.show()
+
+Data Visualisation: Donut chart
+Exploring what features affect the manufacturing qty's
+
+Data Visualisation Comments for Below Code: Setting Variables to store data:
+Setting variables to store the data for each number of doors type within the Data Frame
+Using 'loc' function to focus on column 'num-of-doors' and extracting data for each type.
+Then using '.count()' function to count the total number of each num-of-door types occurance
+There are 2 fuel-types: two, four
+Setting Visualisation:
+
+Setting donut chart visualisation using the num-of-doors variables.
+Using donut chart to see the percentage qty's ratio for each type
+Setting variable 'names' to use for title in donut segments
+Setting variable 'segments' to store each num-of-doors type variables.
+Plotting donut chart and setting features( ie-colour, titles, labels ect.)
+Using plt.gcf ('Get current feature') function to get reference for figure
+-Reference used for donut chart: https://www.python-graph-gallery.com/161-custom-matplotlib-donut-plot
+
+# Extracting data for number of doors types into variables:
+doors_2 = automobile_df.loc[(automobile_df['num-of-doors'] == 'two')]
+doors_2 = doors_2["num-of-doors"].count()
+
+doors_4 = automobile_df.loc[(automobile_df['num-of-doors'] == 'four')]
+doors_4 = doors_4["num-of-doors"].count()
+
+# Setting data
+names = ['Four Doors', 'Two Doors']
+segments = [doors_4,doors_2]
+ 
+# Create a circle at the center of the plot
+my_circle = plt.Circle( (0,0), 0.7, color='white')
+ 
+# Plotting donut chart:
+plt.rcParams['text.color'] = 'blue'
+plt.pie(segments, labels = names, autopct='%1.1f%%')
+
+# Using gcf for display:
+p = plt.gcf()
+p.gca().add_artist(my_circle)
+plt.title("Chart showing percentage qty's for number of doors \u2722")
+
+
+# ==========Saving image:
+plt.savefig("number-doors.png")
+
+plt.show()
+
+Step 5: Data Exploration III: Overall Comparisons
+Data Visualisation: Heat Map
+Exploring the overall features and comparing them to each other:
+
+Data Visualisation Comments for Below Code: Setting Visualisation for car features
+Setting heatmap using seaborn sns
+Using 'car_features' dataframe for visualisation
+Setting features for heat map style, titles and labels.
+Setting x axis label to rotate
+# Plotting heatmap:
+s = sns.heatmap(car_features,annot=True,cmap='coolwarm', fmt=',.0f')
+plt.xticks(rotation = 45)
+
+s.set(title="Automobile Features per make: ",xlabel='Features', ylabel='Car Makes')
+
+# ==========Saving image:
+plt.savefig("heatmap.png")
+
+plt.show()
+
+Data Visualisation: Pair plot
+Exploring the overall features and comparing them to each other:
+
+Data Visualisation Comments for Below Code: Setting Visualisation for car features
+Using 'car_features' dataframe for visualisation
+Plotting 2 x pairplots from seaborn to show car features and their relationships to each other
+Setting style to white background.
+First pairplot visualisation shows all colums
+Second pairplot visualisation shows specific columns from dataframe in relation to the price
+Reference used for Pair plot: https://towardsdatascience.com/seaborn-pairplot-enhance-your-data-understanding-with-a-single-plot-bf2f44524b22#:~:text=The%20Seaborn%20Pairplot%20allows%20us,to%20become%20familiar%20with%20it.
+
+automobile_df
+symboling	normalized-losses	make	fuel-type	num-of-doors	body-style	curb-weight	engine-size	compression-ratio	horsepower	peak-rpm	city-mpg	highway-mpg	price
+3	2	164	audi	gas	four	sedan	2337	109	10.0	102	5500	24	30	13950
+4	2	164	audi	gas	four	sedan	2824	136	8.0	115	5500	18	22	17450
+6	1	158	audi	gas	four	sedan	2844	136	8.5	110	5500	19	25	17710
+8	1	158	audi	gas	four	sedan	3086	131	8.3	140	5500	17	20	23875
+10	2	192	bmw	gas	two	sedan	2395	108	8.8	101	5800	23	29	16430
+...	...	...	...	...	...	...	...	...	...	...	...	...	...	...
+200	-1	95	volvo	gas	four	sedan	2952	141	9.5	114	5400	23	28	16845
+201	-1	95	volvo	gas	four	sedan	3049	141	8.7	160	5300	19	25	19045
+202	-1	95	volvo	gas	four	sedan	3012	173	8.8	134	5500	18	23	21485
+203	-1	95	volvo	diesel	four	sedan	3217	145	23.0	106	4800	26	27	22470
+204	-1	95	volvo	gas	four	sedan	3062	141	9.5	114	5400	19	25	22625
+159 rows × 14 columns
+
+# Plotting pairplot chart 1:
+sns.set_style('white')
+sns.pairplot(car_features)
+
+print("Pairplot showing relationships between all car features:")
+
+# Plotting pairplot chart 2:
+sns.pairplot(automobile_df, vars=['city-mpg', 'highway-mpg','curb-weight',
+                                  'engine-size'],hue = 'price')
+
+# ==========Saving image:
+plt.savefig("pairplots.png")
+
+plt.show()
+Pairplot showing relationships between all car features:
+
+
+Summary: All Visualisations Displayed:
+
+Data Visualisation Comments for Below Code: displaying all saved visualisation images
+Using 'display.Image from Ipython display module to output all visualisation png's
+display.Image('price.png')
+
+display.Image('enginesize.png')
+
+display.Image('citympg.png')
+
+display.Image('curbweight.png')
+
+display.Image('horsepwr.png')
+
+display.Image('normalised.png')
+
+display.Image('symboling.png')
+
+display.Image('body-type.png')
+
+display.Image('fuel-types.png')
+
+display.Image('number-doors.png')
+
+display.Image('heatmap.png')
+
+display.Image('pairplots.png')
+
+Concluding:
+Exploratory Data Analysis
+For the breakdown of the automobile dataframe please click HERE
+
+The End
+1786199.jpg
