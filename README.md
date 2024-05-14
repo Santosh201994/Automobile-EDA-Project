@@ -4,6 +4,11 @@ Automobile exploratory data analysis
 #### &#10148; Summary:
 `This dataset is a general overview of automobile manufacturers and the features that accompany them.
 
+## Links:
+* Jupyter Notebook- <a href="https://github.com/Santosh201994/Automobile-EDA-Project/blob/406e9a4d5708f7a9951248f6aa7f61c147dfdab1/automobile-project.ipynb">[Automobile-Project]</a> 
+* EDA pdf- <a href="https://github.com/Santosh201994/Automobile-EDA-Project/blob/406e9a4d5708f7a9951248f6aa7f61c147dfdab1/Automobile%20EDA.pdf">[Automobile EDA]</a>
+
+
 #### &#10148;Project Status: `Completed` [&#10003;]
 
 ## Project Scope & Objective:
@@ -90,6 +95,3 @@ hon modules required:
    * Ipython
 
 
-## Featured:
-* Jupyter Notebook- <a href="https://github.com/Santosh201994/Automobile-EDA-Project/blob/406e9a4d5708f7a9951248f6aa7f61c147dfdab1/automobile-project.ipynb">[Automobile-Project]</a> 
-* EDA pdf- <a href="https://github.com/Santosh201994/Automobile-EDA-Project/blob/406e9a4d5708f7a9951248f6aa7f61c147dfdab1/Automobile%20EDA.pdf">[Automobile EDA]</a>
